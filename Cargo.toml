@@ -1,0 +1,12 @@
+[package]
+name = "anti_fedor"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+teloxide = { version = "0.12.2", features = ["webhooks", "tower", "macros", "teloxide-macros"] }
+tokio = { version = "1.36.0", features = ["full"] }
+chrono = "0.4.35"
+pretty_env_logger = "0.5.0"
+log = "0.4.21"
+dotenv = "0.15.0"
