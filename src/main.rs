@@ -1,22 +1,25 @@
 use std::str::FromStr;
 
-use chrono::{TimeDelta};
+use chrono::TimeDelta;
 use teloxide::{prelude::*, types::ChatPermissions, utils::command::BotCommands};
 
 #[derive(BotCommands, Clone)]
-#[command(rename_rule = "lowercase", parse_with = "split", description = "Команды для администратора.")]
+#[command(
+    rename_rule = "lowercase",
+    parse_with = "split",
+    description = "Команды для администратора."
+)]
 enum Command {
     #[command(description = "Показать справку.")]
     Help,
-    #[command(description = "Размутить пользователя. Кидается в ответ на сообщение пользователя, которого надо размутить.")]
+    #[command(
+        description = "Размутить пользователя. Кидается в ответ на сообщение пользователя, которого надо размутить."
+    )]
     Unmute,
     #[command(description = "Замутить пользователя. \
     Кидается в ответ на сообщение пользователя, которого надо замутить. \
     После команды нужно указать число и единицу измерения времени - на сколько замутить человека. ")]
-    Mute {
-        time: u64,
-        unit: UnitOfTime,
-    },
+    Mute { time: u64, unit: UnitOfTime },
 }
 
 #[derive(Clone)]
@@ -52,7 +55,8 @@ async fn main() {
 async fn action(bot: Bot, msg: Message, cmd: Command) -> ResponseResult<()> {
     match cmd {
         Command::Help => {
-            bot.send_message(msg.chat.id, Command::descriptions().to_string()).await?;
+            bot.send_message(msg.chat.id, Command::descriptions().to_string())
+                .await?;
         }
         Command::Unmute => unmute_user(bot, msg).await?,
         Command::Mute { time, unit } => mute_user(bot, msg, calc_restrict_time(time, unit)).await?,
@@ -63,8 +67,7 @@ async fn action(bot: Bot, msg: Message, cmd: Command) -> ResponseResult<()> {
 
 async fn mute_user(bot: Bot, msg: Message, time: TimeDelta) -> ResponseResult<()> {
     let callee_id = msg.from().unwrap().id;
-    let admins = bot.get_chat_administrators(msg.chat.id)
-        .await?;
+    let admins = bot.get_chat_administrators(msg.chat.id).await?;
     let mut is_current_user_admin = false;
     for admin in admins.iter() {
         if admin.user.id == callee_id {
@@ -72,13 +75,12 @@ async fn mute_user(bot: Bot, msg: Message, time: TimeDelta) -> ResponseResult<()
         }
     }
     if !is_current_user_admin {
-        bot
-            .send_message(
-                msg.chat.id,
-                "У вас недостаточно прав для совершения операции.",
-            )
-            .reply_to_message_id(msg.id)
-            .await?;
+        bot.send_message(
+            msg.chat.id,
+            "У вас недостаточно прав для совершения операции.",
+        )
+        .reply_to_message_id(msg.id)
+        .await?;
     }
     match msg.reply_to_message() {
         Some(replied) => 'lol: {
@@ -90,11 +92,7 @@ async fn mute_user(bot: Bot, msg: Message, time: TimeDelta) -> ResponseResult<()
                 }
             }
             if is_mentioned_admin {
-                bot
-                    .send_message(
-                        msg.chat.id,
-                        "Пользователь является администратором. Увы.",
-                    )
+                bot.send_message(msg.chat.id, "Пользователь является администратором. Увы.")
                     .reply_to_message_id(msg.id)
                     .await?;
                 break 'lol;
@@ -104,8 +102,8 @@ async fn mute_user(bot: Bot, msg: Message, time: TimeDelta) -> ResponseResult<()
                 replied.from().expect("Must be MessageKind::Common").id,
                 ChatPermissions::empty(),
             )
-                .until_date(msg.date + time)
-                .await?;
+            .until_date(msg.date + time)
+            .await?;
         }
         None => {
             bot.send_message(msg.chat.id, "Используй эту команду в ответ на сообщение пользователя, которого хочешь замутить!")
@@ -117,8 +115,7 @@ async fn mute_user(bot: Bot, msg: Message, time: TimeDelta) -> ResponseResult<()
 
 async fn unmute_user(bot: Bot, msg: Message) -> ResponseResult<()> {
     let callee_id = msg.from().unwrap().id;
-    let admins = bot.get_chat_administrators(msg.chat.id)
-        .await?;
+    let admins = bot.get_chat_administrators(msg.chat.id).await?;
     let mut is_current_user_admin = false;
     for admin in admins.iter() {
         if admin.user.id == callee_id {
@@ -126,13 +123,12 @@ async fn unmute_user(bot: Bot, msg: Message) -> ResponseResult<()> {
         }
     }
     if !is_current_user_admin {
-        bot
-            .send_message(
-                msg.chat.id,
-                "У вас недостаточно прав для совершения операции.",
-            )
-            .reply_to_message_id(msg.id)
-            .await?;
+        bot.send_message(
+            msg.chat.id,
+            "У вас недостаточно прав для совершения операции.",
+        )
+        .reply_to_message_id(msg.id)
+        .await?;
     }
     match msg.reply_to_message() {
         Some(replied) => 'lol: {
@@ -144,22 +140,17 @@ async fn unmute_user(bot: Bot, msg: Message) -> ResponseResult<()> {
                 }
             }
             if is_mentioned_admin {
-                bot
-                    .send_message(
-                        msg.chat.id,
-                        "Пользователь является администратором. Увы.",
-                    )
+                bot.send_message(msg.chat.id, "Пользователь является администратором. Увы.")
                     .reply_to_message_id(msg.id)
                     .await?;
                 break 'lol;
             }
-            bot
-                .restrict_chat_member(
-                    msg.chat.id,
-                    replied.from().expect("Must be MessageKind::Common").id,
-                    ChatPermissions::all(),
-                )
-                .await?;
+            bot.restrict_chat_member(
+                msg.chat.id,
+                replied.from().expect("Must be MessageKind::Common").id,
+                ChatPermissions::all(),
+            )
+            .await?;
         }
         None => {
             bot
