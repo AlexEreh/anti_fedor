@@ -1,7 +1,6 @@
 # Бот АнтиФёдор
 
-![Master build status badge]
-(https://github.com/AlexEreh/anti_fedor/actions/workflows/rust.yml/badge.svg)
+![Master build status badge](https://github.com/AlexEreh/anti_fedor/actions/workflows/rust.yml/badge.svg)
 
 ## Что умеет этот бот
 * Мутить по команде `/mute amount unit`, 
