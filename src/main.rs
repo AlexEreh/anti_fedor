@@ -3,16 +3,6 @@ use std::str::FromStr;
 use chrono::{TimeDelta};
 use teloxide::{prelude::*, types::ChatPermissions, utils::command::BotCommands};
 
-// Derive BotCommands to parse text with a command into this enumeration.
-//
-// 1. `rename_rule = "lowercase"` turns all the commands into lowercase letters.
-// 2. `description = "..."` specifies a text before all the commands.
-//
-// That is, you can call Command::descriptions() to get a description of
-// your commands in this format:
-// %GENERAL-DESCRIPTION%
-// %PREFIX%%COMMAND% - %DESCRIPTION%
-
 #[derive(BotCommands, Clone)]
 #[command(rename_rule = "lowercase", parse_with = "split", description = "Команды для администратора.")]
 enum Command {
