@@ -1,6 +1,7 @@
 # Бот АнтиФёдор
 
 ![CI](https://github.com/AlexEreh/anti_fedor/actions/workflows/ci.yml/badge.svg)
+[![codecov](https://codecov.io/gh/AlexEreh/anti_fedor/branch/master/graph/badge.svg)](https://codecov.io/gh/AlexEreh/anti_fedor)
 
 ## Что умеет этот бот
 * Мутить по команде `/mute amount unit`, 
