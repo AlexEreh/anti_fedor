@@ -44,9 +44,9 @@ impl FromStr for UnitOfTime {
     }
 }
 
-pub async fn build_router(api_key_for_some_service: String) -> Router {
+pub fn build_router(api_key_for_some_service: String) -> Router {
     let bot = Bot::new(api_key_for_some_service);
-    Command::repl(bot, action).await;
+    tokio::spawn(Command::repl(bot, action));
     Router::new()
 }
 
@@ -55,7 +55,7 @@ async fn axum(#[shuttle_secrets::Secrets] secret_store: SecretStore) -> ShuttleA
     let my_secret = secret_store.get("TELOXIDE_TOKEN").unwrap();
 
     // Use the shared build function
-    let router = build_router(my_secret).await;
+    let router = build_router(my_secret);
 
     Ok(router.into())
 }
