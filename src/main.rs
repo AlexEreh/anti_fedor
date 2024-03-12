@@ -1,6 +1,9 @@
+use axum::Router;
 use std::str::FromStr;
 
 use chrono::TimeDelta;
+use shuttle_axum::ShuttleAxum;
+use shuttle_secrets::SecretStore;
 use teloxide::{prelude::*, types::ChatPermissions, utils::command::BotCommands};
 
 #[derive(BotCommands, Clone)]
@@ -41,15 +44,20 @@ impl FromStr for UnitOfTime {
     }
 }
 
-#[tokio::main]
-async fn main() {
-    pretty_env_logger::init();
-    log::info!("Starting admin bot...");
-    dotenv::dotenv().expect("Not found .env");
-
-    let bot = Bot::from_env();
-
+pub async fn build_router(api_key_for_some_service: String) -> Router {
+    let bot = Bot::new(api_key_for_some_service);
     Command::repl(bot, action).await;
+    Router::new()
+}
+
+#[shuttle_runtime::main]
+async fn axum(#[shuttle_secrets::Secrets] secret_store: SecretStore) -> ShuttleAxum {
+    let my_secret = secret_store.get("TELOXIDE_TOKEN").unwrap();
+
+    // Use the shared build function
+    let router = build_router(my_secret).await;
+
+    Ok(router.into())
 }
 
 async fn action(bot: Bot, msg: Message, cmd: Command) -> ResponseResult<()> {
