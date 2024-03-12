@@ -33,9 +33,9 @@ TELOXIDE_TOKEN=токен
 
 ## Стек технологий
 * [Rust](https://www.rust-lang.org/) - language of utterly deranged.
+* [Shuttle](https://www.shuttle.rs) - инструмент для быстрого написания бэкендов для Rust. 
 * [Teloxide](https://github.com/teloxide/teloxide) - достаточно простой фреймворк для написания 
 телеграм ботов с помощью языка Rust.
-* [dotenv](https://crates.io/crates/dotenv) - крейт для импорта переменных окружения из файла `.env`
 * [chrono](https://crates.io/crates/chrono) - крейт для работы с единицами измерения времени.
 
 ## Почему АнтиФёдор, а не АнтиСтас?

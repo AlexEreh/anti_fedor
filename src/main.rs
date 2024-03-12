@@ -1,6 +1,5 @@
-use std::str::FromStr;
 use axum::Router;
-
+use std::str::FromStr;
 
 use chrono::TimeDelta;
 use shuttle_axum::ShuttleAxum;
@@ -52,9 +51,7 @@ pub async fn build_router(api_key_for_some_service: String) -> Router {
 }
 
 #[shuttle_runtime::main]
-async fn axum(
-    #[shuttle_secrets::Secrets] secret_store: SecretStore
-) -> ShuttleAxum {
+async fn axum(#[shuttle_secrets::Secrets] secret_store: SecretStore) -> ShuttleAxum {
     let my_secret = secret_store.get("TELOXIDE_TOKEN").unwrap();
 
     // Use the shared build function
