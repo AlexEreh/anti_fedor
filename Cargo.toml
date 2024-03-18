@@ -6,7 +6,7 @@ publish = false
 
 [dependencies]
 shuttle-service = { version = "0.41.0", features = ["tokio"] }
-shuttle-secrets = "0.41.0"
+shuttle-secrets = "0.42.0"
 shuttle-runtime = { version = "0.41.0", features = ["colored"] }
 shuttle-axum = "0.41.0"
 axum = "0.7.4"
