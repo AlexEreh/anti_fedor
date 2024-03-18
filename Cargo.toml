@@ -7,7 +7,7 @@ publish = false
 [dependencies]
 shuttle-service = { version = "0.42.0", features = ["tokio"] }
 shuttle-secrets = "0.42.0"
-shuttle-runtime = { version = "0.41.0", features = ["colored"] }
+shuttle-runtime = { version = "0.42.0", features = ["colored"] }
 shuttle-axum = "0.41.0"
 axum = "0.7.4"
 teloxide = { version = "0.12.2", features = ["webhooks", "tower", "macros", "teloxide-macros"] }
