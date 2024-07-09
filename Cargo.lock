@@ -53,7 +53,7 @@ dependencies = [
  "shuttle-axum",
  "shuttle-runtime 0.44.0",
  "shuttle-secrets",
- "shuttle-service 0.44.0",
+ "shuttle-service 0.46.0",
  "teloxide",
  "tokio",
 ]
