@@ -10,7 +10,7 @@ shuttle-secrets = "0.42.0"
 shuttle-runtime = { version = "0.44.0", features = ["colored"] }
 shuttle-axum = "0.44.0"
 axum = "0.7.5"
-teloxide = { version = "0.12.2", features = ["webhooks", "tower", "macros", "teloxide-macros"] }
+teloxide = { version = "0.13.0", features = ["webhooks", "tower", "macros", "teloxide-macros"] }
 tokio = { version = "1.40.0", features = ["full"] }
 chrono = "0.4.38"
 pretty_env_logger = "0.5.0"
