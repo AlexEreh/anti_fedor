@@ -9,7 +9,7 @@ shuttle-service = { version = "0.47.0", features = ["tokio"] }
 shuttle-secrets = "0.42.0"
 shuttle-runtime = { version = "0.44.0", features = ["colored"] }
 shuttle-axum = "0.44.0"
-axum = "0.7.5"
+axum = "0.7.6"
 teloxide = { version = "0.12.2", features = ["webhooks", "tower", "macros", "teloxide-macros"] }
 tokio = { version = "1.40.0", features = ["full"] }
 chrono = "0.4.38"
