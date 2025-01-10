@@ -5,7 +5,7 @@ edition = "2021"
 publish = false
 
 [dependencies]
-shuttle-service = { version = "0.47.0", features = ["tokio"] }
+shuttle-service = { version = "0.51.0", features = ["tokio"] }
 shuttle-secrets = "0.42.0"
 shuttle-runtime = { version = "0.44.0", features = ["colored"] }
 shuttle-axum = "0.44.0"
