@@ -14,5 +14,5 @@ teloxide = { version = "0.12.2", features = ["webhooks", "tower", "macros", "tel
 tokio = { version = "1.40.0", features = ["full"] }
 chrono = "0.4.39"
 pretty_env_logger = "0.5.0"
-log = "0.4.22"
+log = "0.4.25"
 dotenvy = "0.15.7"
